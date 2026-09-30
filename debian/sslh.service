@@ -1,0 +1,29 @@
+[Unit]
+Description=SSL/SSH multiplexer
+After=network.target
+Documentation=man:sslh(8)
+
+[Service]
+EnvironmentFile=/etc/default/sslh
+#ExecStart=/usr/sbin/sslh-select --foreground $DAEMON_OPTS
+ExecStart=/usr/sbin/sslh-ev --foreground $DAEMON_OPTS
+KillMode=process
+#Hardening
+PrivateTmp=true
+CapabilityBoundingSet=CAP_SETGID CAP_SETUID CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+SecureBits=noroot-locked
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+MountFlags=private
+NoNewPrivileges=true
+PrivateDevices=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryDenyWriteExecute=true
+DynamicUser=true
+
+[Install]
+WantedBy=multi-user.target

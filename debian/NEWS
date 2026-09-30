@@ -1,0 +1,14 @@
+sslh (1.22c-1) unstable; urgency=medium
+
+  * If you have --pidfile specified in /etc/default/sslh, you should
+    remove it, as it is now specified in /etc/init.d/sslh and is not
+    required at all if you are using systemd.
+
+ -- Don Armstrong <don@debian.org>  Thu, 17 Aug 2023 21:01:40 -0700
+
+sslh (1.9-1) unstable; urgency=low
+
+    This version add single-threaded select(2)-based binary.
+    The fork version is still the default one, see /etc/default/sslh
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Sun, 14 Aug 2011 15:34:03 +0200

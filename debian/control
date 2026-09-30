@@ -1,0 +1,27 @@
+Source: sslh
+Section: net
+Priority: optional
+Maintainer: Don Armstrong <don@debian.org>
+Build-Depends: debhelper-compat (= 12), libwrap0-dev, binutils, po-debconf,
+               libio-socket-inet6-perl, libconfig-dev, libcap-dev [linux-any],
+               psmisc, lcov, libpcre2-dev, libev-dev, libsystemd-dev, libbsd-dev,
+               libcapture-tiny-perl, libdatetime-perl, libtimedate-perl,
+               libproxyprotocol-dev,
+               init-system-helpers (>= 1.51)
+Standards-Version: 4.4.0
+Homepage: http://www.rutschle.net/tech/sslh/README.html
+Vcs-Browser: https://salsa.debian.org/debian/sslh.git
+Vcs-Git: https://salsa.debian.org/debian/sslh.git
+
+Package: sslh
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, adduser, debconf (>= 0.5),
+         update-inetd
+Recommends: apache2 | httpd, openssh-server | ssh-server
+Suggests: openbsd-inetd | inet-superserver
+Conflicts: libnet-proxy-perl
+Description: Applicative protocol multiplexer
+ sslh lets one accept HTTPS, SSH, OpenVPN, tinc and XMPP connections on the
+ same port. This makes it possible to connect to any of these servers on
+ port 443 (e.g. from inside a corporate firewall, which almost never block
+ port 443) while still serving HTTPS on that port.

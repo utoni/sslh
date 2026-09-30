@@ -1,0 +1,3 @@
+sslh-select usr/sbin/
+sslh-ev usr/sbin/
+systemd-sslh-generator /usr/lib/systemd/system-generators/

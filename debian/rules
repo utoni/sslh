@@ -1,0 +1,39 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# hardening options at build time
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+	EXTRA_OPTIONS := USELIBCAP=1 USESYSTEMD=1
+else
+	EXTRA_OPTIONS :=
+endif
+
+override_dh_autoreconf:
+	perl -MConf::Libconfig -e 'print "Conf::Libconfig found\n"' || sudo cpan Conf::Libconfig
+
+override_dh_auto_configure:
+	rm -rf conf2struct
+	git clone https://github.com/yrutschle/conf2struct.git
+	./conf2struct/conf2struct ./echosrv.cfg
+	./conf2struct/conf2struct ./sslhconf.cfg
+	CFLAGS="${CFLAGS} -I/usr/include/libproxyprotocol" ./configure
+
+override_dh_auto_build:
+	dh_auto_build -- CFLAGS="${CFLAGS} -I/usr/include/libproxyprotocol" USELIBWRAP=1 $(EXTRA_OPTIONS)
+
+override_dh_auto_install:
+	# auto install fork version, see debian/install for select version
+	dh_auto_install -- DESTDIR=$(CURDIR)/debian/sslh/usr PREFIX=/ install
+
+# do not start daemon by default: force user to configure
+override_dh_installinit:
+	dh_installinit --no-start --no-enable
+
+override_dh_auto_test:
+	true
+
+%:
+	dh $@

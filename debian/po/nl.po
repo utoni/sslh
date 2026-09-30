@@ -1,0 +1,60 @@
+# Dutch translation of sslh debconf templates.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the sslh package.
+# Frans Spiesschaert <Frans.Spiesschaert@yucom.be>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sslh\n"
+"Report-Msgid-Bugs-To: sslh@packages.debian.org\n"
+"POT-Creation-Date: 2010-02-13 01:27+0100\n"
+"PO-Revision-Date: 2014-10-07 16:58+0200\n"
+"Last-Translator: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>\n"
+"Language-Team: Debian Dutch l10n Team <debian-l10n-dutch@lists.debian.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Type: select
+#. Choices
+#: ../templates:1001
+msgid "from inetd"
+msgstr "vanuit inetd"
+
+#. Type: select
+#. Choices
+#: ../templates:1001
+msgid "standalone"
+msgstr "zelfstandig"
+
+#. Type: select
+#. Description
+#: ../templates:1002
+msgid "Run sslh:"
+msgstr "Uitvoeren van sslh:"
+
+#. Type: select
+#. Description
+#: ../templates:1002
+msgid ""
+"sslh can be run either as a service from inetd, or as a standalone server. "
+"Each choice has its own benefits. With only a few connection per day, it is "
+"probably better to run sslh from inetd in order to save resources."
+msgstr ""
+"sslh kan zowel uitgevoerd worden als een dienst van inetd of als een "
+"zelfstandige server. Elke keuze heeft zijn eigen voordelen. Met per dag "
+"slechts enkele verbindingen, is het wellicht beter om sslh uit te voeren "
+"vanuit inetd om systeembronnen te sparen."
+
+#. Type: select
+#. Description
+#: ../templates:1002
+msgid ""
+"On the other hand, with many connections, sslh should run as a standalone "
+"server to avoid spawning a new process for each incoming connection."
+msgstr ""
+"Anderzijds zou sslh bij een groot aantal verbindingen als een zelfstandige "
+"server uitgevoerd moeten worden om te vermijden dat de computer bij elke "
+"nieuwe inkomende verbinding een nieuw proces zou moeten opstarten."

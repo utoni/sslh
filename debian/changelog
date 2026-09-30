@@ -1,0 +1,369 @@
+sslh (2.3.1-1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+
+ -- Toni Uhlig <matzeton@googlemail.com>  Tue, 25 Aug 2026 13:10:24 +0200
+
+sslh (2.1.4-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Enable systemd socket support
+
+ -- Don Armstrong <don@debian.org>  Sun, 05 Jan 2025 10:59:07 -0800
+
+sslh (2.1.2-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Don Armstrong <don@debian.org>  Wed, 02 Oct 2024 22:23:43 -0700
+
+sslh (2.1.1-2) unstable; urgency=low
+
+  * Avoid blocking when reading data (Closes: #1082555)
+
+ -- Don Armstrong <don@debian.org>  Sat, 21 Sep 2024 22:50:30 -0700
+
+sslh (2.1.1-1) unstable; urgency=low
+
+  * New upstream release
+    - Addresses FTBFS (Closes: #1069381)
+  * Add missing autoconf template for HAVELANDLOCK
+
+ -- Don Armstrong <don@debian.org>  Thu, 25 Apr 2024 20:16:44 -0700
+
+sslh (1.22c-1) unstable; urgency=medium
+
+  * New upstream release
+  * Move --pidfile out of /etc/default/sslh to /etc/init.d/sslh to avoid
+    issues with hardening options in systemd.
+  * Switch to pcre2 (Closes: #999953)
+  * Fix test failures due to Debian-only patch to avoid Conf::Libconfig.
+
+ -- Don Armstrong <don@debian.org>  Tue, 15 Aug 2023 16:38:35 -0700
+
+sslh (1.20-1) unstable; urgency=medium
+
+  [ Guillaume Delacour ]
+  * Remove debian/patches/transparent_mode_local.diff (merged upstream)
+  * Replace extra priority by optional
+  * Use debhelper 12 to avoid build depends on dh-systemd
+  * Update obsolete homepage (Closes: #889575)
+
+  [ Don Armstrong ]
+  * New upstream release (Closes: #889576)
+  * Refresh static port patch and remove localhost connection patch (for
+    testing only)
+  * Add patch which avoids requiring Conf::Libconfig, use dynamic ports
+  * Bump to Standards-Version 4.4.0; primary change is
+    --no-enable/--no-start instead of RUN
+
+ -- Don Armstrong <don@debian.org>  Thu, 05 Sep 2019 10:04:54 -0700
+
+sslh (1.18-1) unstable; urgency=medium
+
+  * New upstream release, include transparent mode local patch from upstream
+    (Closes: #823229)
+  * Bump to Standards-Version 3.9.8 (no changes needed)
+  * Change Vcs-{Browser,Git} to use https instead of http/git
+  * Set Documentation key to sslh(8) for systemd unit file
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Tue, 17 May 2016 20:56:14 +0200
+
+sslh (1.17-2) unstable; urgency=medium
+
+  * debian/postrm: Test execution of update-inetd and deluser binaries as they
+    are Depends and might be unavailable when removing/pruging
+    (Policy 7.2, Closes: #787508)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Sun, 19 Jul 2015 15:37:28 +0000
+
+sslh (1.17-1) unstable; urgency=medium
+
+  * New upstream release
+    + Document logging in /var/log/auth.log (Closes: #735922)
+    + Do not require --listen when --inetd is specified (LP: #1382158)
+    + disable_ip_freebind_test.diff merged
+    + Refresh fixed_version.diff (and use dpkg-parsechangelog)
+  * debian/watch: Update unrelated versions mangle regex
+  * debian/control: Bump to Standards-Version 3.9.6 (no changes needed)
+  * debian/postrm: Don't test binaries presence as already depends on packages
+    providing them (lintian command-with-path-in-maintainer-script)
+  * Debconf translation: Add nl.po: thanks Frans Spiesschaert (Closes: #766176)
+  * Remove parallel building as the build may fail sometimes
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Sun, 31 May 2015 01:22:18 +0200
+
+sslh (1.16-2) unstable; urgency=medium
+
+  * Compile sslh with libcap support only on linux archs, thanks James Cowgill
+    (Closes: #760055)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Mon, 01 Sep 2014 20:36:48 +0200
+
+sslh (1.16-1) unstable; urgency=medium
+
+  * New upstream release: fix some startup problem when interfaces are not
+    ready at boot time (IP_FREEBIND support when available) and can use libcap
+    for transparent mode
+  * Enable libcap and libwrap support at build time
+  * Enable dpkg-buildflags: Drop hardening-wrapper Build-Depends and use
+    DEB_BUILD_HARDENING instead of DEB_BUILD_MAINT_OPTIONS
+  * Remove old .gitignore as upstream has one too
+  * debian/sslh.tmpfile: Create /run/sslh for systemd as root because sslh
+    write its pid before dropping privileges (Closes: #740560)
+  * debian/patches/disable_ip_freebind_test.diff: Remove "Can't bind address"
+    upstream test because IP_FREEBIND is now enabled upstream
+  * debian/docs: upstream README is now README.md
+  * debian/rules:
+    + use DESTDIR in addition of PREFIX as upstream change Makefile
+  * Refresh debian/patches/disable_valgrind_launch.diff due to upstream
+    changes
+  * Stop service in case of purge (to be able to remove the user too)
+  * Use DEB_BUILD_OPTIONS to speed the build
+  * debian/patches/fixed_version.diff: Fix the version of binaries based on
+    debian/changelog (instead of relying on git)
+  * Update Description as sslh is not only a ssl/ssh multiplexer but a
+    protocol multiplexer
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Thu, 07 Aug 2014 00:06:06 +0200
+
+sslh (1.15-1) unstable; urgency=medium
+
+  * New upstream release (Closes: #720680)
+  * Drop debian/patches/minor_typo_manpage.diff (no more needed)
+  * debian/control: Point Vcs-{Browser,Git} to anonscm.debian.org
+  * debian/lintian-overrides: Removed since sslh use fortified functions
+  * debian/watch: update pattern from sepwatch
+  * debian/default: change default 0.0.0.0 ip to <change-me> to force the
+    user to properly set it, thanks Marc Haber (Closes: #720674)
+  * debian/control: Bump to Standards-Version 3.9.5 (no changes needed)
+  * debian/README.Debian: change configuration examples as sslh can now handle
+    XMPP, OpenSSH and OpenVPN servers (Closes: #730098)
+  * debian/logcheck.ignore.server: Update pattern, thanks Richard van den Berg
+    (Closes: #705430)
+  * debian/patches/disable_valgrind_launch.diff: Don't use valgrind in tests
+  * Provide systemd support:
+    + debian/sslh.service, based on upstream scripts/systemd.sslh.service
+    + debian/rules: use "--with systemd" flag in debhelper generic call
+    + debian/control: Build-Depends on dh-systemd
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Sun, 02 Feb 2014 12:57:32 +0100
+
+sslh (1.13b-3.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Restore debian/patch/ftbfs_localhost.diff, as autobuilders are still not
+    all fixed (Closes: #685928)
+
+ -- David Prévot <taffit@debian.org>  Sun, 26 Aug 2012 11:35:48 -0400
+
+sslh (1.13b-3.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * debian/control: Build-Depends on lcov, which contains lcov and genhtml
+    that are used by upstream in the test suite code "t" (Closes: #684846)
+
+ -- David Prévot <taffit@debian.org>  Thu, 23 Aug 2012 17:40:55 -0400
+
+sslh (1.13b-3) unstable; urgency=low
+
+  * debian/control: Build-Depends on psmisc, which contains killall and is
+    used by upstream in the test suite code "t" (Closes: #678333)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Thu, 21 Jun 2012 12:03:10 +0200
+
+sslh (1.13b-2) unstable; urgency=low
+
+  * debian/control, Build-Depends on virtual package libconfig-dev
+    instead of transitional package libconfig8-dev (Closes: #678301)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Wed, 20 Jun 2012 21:29:24 +0200
+
+sslh (1.13b-1) unstable; urgency=low
+
+  * New upstream release
+  * debian/control: Add Build-Depend on libconfig8-dev
+  * Drop debian/patches/pidfile_long_option.diff, fixed upstream
+  * Drop debian/patch/ftbfs_localhost.diff, as autobuilders are fixed now
+  * debian/patches/minor_typo_manpage.diff: Fix minor typo in manpage
+  * debian/examples: sslh can now handle a protocol config file; provide
+    upstream example.cfg as sample
+  * debian/lintian-overrides: sslh doesn't use hardening fortified
+    libc functions
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Fri, 25 May 2012 18:39:03 +0200
+
+sslh (1.10-3) unstable; urgency=low
+
+  * Refresh and rename debian/patch/ftbfs_ip6-localhost.diff to
+    debian/patch/ftbfs_localhost.diff as the problem concern IPv4 localhost too
+  * debian/control: use debhelper 9
+  * debian/compat: Bump to version 9
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Wed, 07 Mar 2012 02:16:19 +0100
+
+sslh (1.10-2) unstable; urgency=low
+
+  * debian/patch/ftbfs_ip6-localhost.diff: Fix FTBFS if ip6-localhost don't
+    resolv to ::1 (Closes: #660269)
+  * debian/copyright: Update Format to 1.0
+  * debian/control: Bump to Standards-Version 3.9.3 (no changes needed)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Fri, 02 Mar 2012 23:45:07 +0100
+
+sslh (1.10-1) unstable; urgency=low
+
+  * New upstream release
+  * debian/rules: Use hardening build options (DEB_BUILD_HARDENING)
+  * debian/compat: Bump to version 8
+  * debian/control:
+    + Build-Depends on:
+      - debhelper >= 8.0.0
+      - hardening-wrapper
+      - libio-socket-inet6-perl (upstream test suite use it)
+    + Update Description with last info in upstream homepage
+  * debian/copyright: Change URI to a versioned one
+  * debian/init: Create /var/run/sslh because sslh now create pid as sslh user
+  * debian/default: Set --pidfile to /var/run/sslh/sslh.pid
+  * debian/patches/pidfile_long_option.diff: Fix typo in manpage about pid file
+    (long option is --pidfile not --pid-file)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Wed, 14 Dec 2011 20:59:14 +0100
+
+sslh (1.9-1) unstable; urgency=low
+
+  * New upstream release (Closes: #632834, #611611)
+  * Drop debian/patches/01_option_user_manpage_error.diff, fixed upstream
+  * Debconf translation: Add ja.po, thanks Hideki Yamane (Closes: #628461)
+  * debian/control:
+    + Newline after 80 chars in Depends
+    + Add Vcs-{Browser,Git}, point to collab-maint
+  * Bump to Standards-Version 3.9.2 (no changes needed)
+  * debian/install: install new sslh-select binary
+  * debian/links: provide manpage for new sslh-select binary (same as sslh)
+  * debian/init:
+    + Remove VERBOSE test to always print message
+    + Remove DAEMON variable, used in /etc/default/sslh to choose binary
+    + Move "is binary executable" test after sourcing /etc/default/sslh
+  * debian/default:
+    + DAEMON to choose sslh binary (fork or new single thread)
+    + Use long options and change ss{l,h} options (upstream change)
+  * debian/NEWS: document that a new binary sslh-select is provided
+  * debian/copyright: Update to dep5 format
+  * debian/logcheck.ignore.server: Update rule
+    (upstream changes of logformat and IPv6 support)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Sun, 14 Aug 2011 15:34:03 +0200
+
+sslh (1.7a-3) unstable; urgency=low
+
+  * Debconf translation:
+    + Add es.po, thanks Camaléon (Closes: #600181)
+    + Add vi.po, thanks Clytie Siddall (Closes: #598591)
+  * debian/init: Change /etc/inetd.conf test (Closes: #603608)
+  * debian/portrm: Test update-inetd and deluser presence before using it
+    (piuparts removal error)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Tue, 02 Nov 2010 21:44:49 +0100
+
+sslh (1.7a-2) unstable; urgency=low
+
+  * Change DAEMON_ARGS to DAEMON_OPTS in initscript to match /etc/default/sslh
+    variable (Closes: #596199)
+  * Modify initscript to return 2 and not exit if RUN=no (Closes: #596111)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Thu, 09 Sep 2010 22:27:04 +0200
+
+sslh (1.7a-1) unstable; urgency=low
+
+  * New upstream release (Closes: #563156)
+    + Provide inetd support (thanks Dima Barsky)
+  * Provide debconf to standalone/inetd mode selection
+    + Add fr.po, thanks David Prévot for proofreadig
+    + Add it.po, thanks Vincenzo Campanella
+    + Add sv.po, thanks Martin Bagge            (Closes: #593673)
+    + Add ru.po, thanks Yuri Kozlov             (Closes: #593766)
+    + Add de.po, thanks Chris Leick             (Closes: #594019)
+    + Add pt.po, thanks Rui Branco              (Closes: #594124)
+    + Add da.po, thanks Joe Dalton              (Closes: #594212)
+    + Add cs.po, thanks Michal Simunek          (Closes: #594508)
+    + Add pt_BR.po, thanks Adriano Rafael Gomes (Closes: #594751)
+  * debian/logcheck.ignore.server: Provide logcheck ignore rule
+    (Closes: #565858, thanks Craig Small)
+  * debian/init: New initscript (based on /etc/init.d/skeleton):
+    + Depend on $remote_fs, $syslog and $network in Required-{Start,Stop}
+    + Test inetd mode, to not start in standalone
+  * debian/default:
+    + Delete option "-P /var/run/sslh.pid" (default value)
+    + Add "RUN=no" to easy turn on
+  * Bump to Standards-Version 3.9.1 (no changes needed)
+  * debian/control:
+    + Depends on ${misc:Depends}, update-inetd, lsb-base
+      and suggest openbsd-inetd | inet-superserver
+    + Increase debhelper dependency to 7.0.50~
+    + Build depends on po-debconf for templates
+  * Switch to dpkg-source 3.0 (quilt) format
+  * debian/manpages: Add sslh.8.gz (dh_installman)
+  * debian/rules: Rewrite based on more simple dh_make 0.55 template
+  * debian/postrm: Delete sslh user in purge case only
+  * debian/post{inst,rm}: Delete unneccessary case
+  * debian/patches/01_option_user_manpage_error.diff:
+    Fix little typo in manpage, reported upstream
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Mon, 26 Jul 2010 23:40:01 +0200
+
+sslh (1.6i-4) unstable; urgency=low
+
+  * debian/control:
+    Recommends apache2 and openssh-server instead of depends on them.
+    Also recommend ssh-server as a virtual alternative (Closes: #559343).
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Sun, 06 Dec 2009 16:02:39 +0100
+
+sslh (1.6i-3) unstable; urgency=low
+
+  * debian/control: Conflicts with libnet-proxy-perl (Closes: #550997).
+  * Bump to Standards-Version 3.8.3 (no changes needed).
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Wed, 14 Oct 2009 19:32:23 +0000
+
+sslh (1.6i-2) unstable; urgency=low
+
+  * Bump to Standards-Version 3.8.2 (no changes needed).
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Wed, 15 Jul 2009 00:00:43 +0000
+
+sslh (1.6i-1) unstable; urgency=low
+
+  * New upstream release
+   - Fix MAX_PATH (static allocation instead)
+   - Fix openlog call
+  * Bump to Standards-Version 3.8.1 (no changes needed).
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Sun, 26 Apr 2009 12:13:15 +0000
+
+sslh (1.6h-1) unstable; urgency=low
+
+  * New upstream release
+    - Fix zombies process after a while (to finish process cleanly)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Sat, 25 Apr 2009 15:32:18 +0200
+
+sslh (1.6g-3) unstable; urgency=low
+
+  * Fix postinstall printed message:
+   /etc/default/ssh to /etc/default/sslh in postinst
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Fri, 27 Feb 2009 14:49:57 +0100
+
+sslh (1.6g-2) unstable; urgency=low
+
+  * Fix some typos in README.Debian (thanks to the author)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Wed, 04 Feb 2009 19:18:12 +0100
+
+sslh (1.6g-1) unstable; urgency=low
+
+  * Initial release (Closes: #497095)
+
+ -- Guillaume Delacour <gui@iroqwa.org>  Fri, 17 Jan 2009 16:23:51 +0100
